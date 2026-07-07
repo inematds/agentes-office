@@ -28,7 +28,7 @@
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:rgba(10,10,15,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
   .navrow{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .logo{font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:.5rem}
+  .logo{font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:.5rem;color:var(--text)}
   .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
   .logo .club{color:var(--sky)}
   .navcta{background:var(--amber);color:#1a1206;font-weight:700;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;transition:transform .15s}
@@ -146,7 +146,7 @@
 
 <nav>
   <div class="wrap navrow">
-    <div class="logo"><span class="dot"></span>INEMA<span class="club">.CLUB</span></div>
+    <a class="logo" href="https://inema.club"><span class="dot"></span>INEMA<span class="club">.CLUB</span></a>
     <a class="navcta" href="isca/">Comece grátis em 15 min</a>
   </div>
 </nav>
@@ -445,7 +445,7 @@
 
 <footer>
   <div class="wrap footrow">
-    <div class="logo" style="font-size:.95rem"><span class="dot"></span>INEMA<span class="club">.CLUB</span></div>
+    <a class="logo" href="https://inema.club" style="font-size:.95rem"><span class="dot"></span>INEMA<span class="club">.CLUB</span></a>
     <div>Agentes: o Novo Office da Era da IA · Formação prática por perfil</div>
   </div>
 </footer>
