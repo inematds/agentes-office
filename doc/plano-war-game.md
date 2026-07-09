@@ -277,7 +277,7 @@ melhoria nunca roda porque não há métrica coletada.
 ```
 agentes-office/
 ├── index.html                  # página de lançamento (Fase 1)
-├── isca/index.html             # aula aberta de 15 min
+├── demo/index.html              # aula aberta de 15 min
 ├── operacional/index.html      # formação perfil 1 (formato v5)
 ├── empreendedor/index.html
 ├── liberal/index.html
