@@ -19,3 +19,11 @@ Gestor e Líder). O aluno não assiste aula: monta o próprio ambiente de trabal
 - ⏳ Fase 2+ — cursos no formato v5
 
 Publicação: GitHub Pages (branch `main`, raiz). Deploy = git push.
+
+<!-- inema-backlink:v1 -->
+## Mais no INEMA.CLUB
+
+- [Ficha completa deste curso](https://www.inema.club/cursos/204-agentes-o-novo-office-formacao-por-perfil/)
+- [Guia: como aprender inteligência artificial](https://www.inema.club/aprender-inteligencia-artificial/)
+- [Todos os cursos](https://www.inema.club/cursos/)
+<!-- /inema-backlink:v1 -->
