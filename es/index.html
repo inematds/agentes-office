@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agentes: la nueva oficina de la era de la IA — Formación INEMA.CLUB</title>
+<meta content="En los años 90 aprendiste a usar la computadora. En los años 2000, internet. Ahora, los agentes de IA. Formación práctica por perfil: no ves clases, montas tu entorno de trabajo con agentes." name="description"/>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg2:#101018; --card:#14141f; --card2:#1a1a28;
+    --border:#26263a; --border-hi:#3a3a55;
+    --text:#e8e6e0; --muted:#9a97a8; --dim:#6b6880;
+    --amber:#f59e0b; --amber-soft:#fbbf24; --sky:#38bdf8;
+    --green:#34d399; --red:#f87171;
+    --radius:14px; --maxw:1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:var(--amber-soft);text-decoration:none}
+  h1,h2,h3{line-height:1.2;font-weight:800}
+  .kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:700}
+  .muted{color:var(--muted)}
+  section{padding:72px 0}
+  .center{text-align:center}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,10,15,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .navrow{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:.5rem;color:var(--text)}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
+  .logo .club{color:var(--sky)}
+  .navcta{background:var(--amber);color:#1a1206;font-weight:700;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;transition:transform .15s}
+  .navcta:hover{transform:translateY(-1px)}
+
+  /* HERO */
+  .hero{padding:88px 0 64px;background:
+    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(245,158,11,.12), transparent),
+    radial-gradient(ellipse 40% 35% at 85% 15%, rgba(56,189,248,.07), transparent)}
+  .hero h1{font-size:clamp(2rem,5.4vw,3.4rem);margin:.9rem 0 1.1rem}
+  .hero h1 .hl{color:var(--amber);text-shadow:0 0 30px rgba(245,158,11,.35)}
+  .hero .sub{font-size:clamp(1.02rem,2vw,1.25rem);color:var(--muted);max-width:760px;margin:0 auto 1.6rem}
+  .hero .sub strong{color:var(--text)}
+  .anchor-phrase{font-size:clamp(1.1rem,2.4vw,1.45rem);font-weight:800;max-width:720px;margin:0 auto 2rem;border-left:none}
+  .anchor-phrase em{font-style:normal;color:var(--amber-soft)}
+  .cta-big{display:inline-block;background:linear-gradient(180deg,var(--amber-soft),var(--amber));color:#1a1206;font-weight:800;font-size:1.05rem;padding:.95rem 1.9rem;border-radius:12px;box-shadow:0 8px 30px rgba(245,158,11,.28);transition:transform .15s,box-shadow .15s}
+  .cta-big:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(245,158,11,.38)}
+  .cta-note{display:block;margin-top:.7rem;font-size:.85rem;color:var(--dim)}
+  .heroimg{width:100%;height:auto;max-width:880px;margin:44px auto 0;display:block;border-radius:var(--radius);border:1px solid var(--border-hi);box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 60px rgba(245,158,11,.08)}
+  .era img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block;border-radius:10px;margin-bottom:14px;border:1px solid var(--border)}
+  .perfil img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:10px;margin-bottom:.5rem;border:1px solid var(--border)}
+
+  /* TIMELINE */
+  .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+  .era{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px 18px;position:relative}
+  .era .year{font-size:.8rem;letter-spacing:.12em;color:var(--dim);font-weight:700}
+  .era .what{font-size:1.15rem;font-weight:800;margin:.25rem 0}
+  .era .who{font-size:.88rem;color:var(--muted)}
+  .era.now{border-color:var(--amber);background:linear-gradient(180deg,rgba(245,158,11,.10),var(--card));box-shadow:0 0 40px rgba(245,158,11,.10)}
+  .era.now .year{color:var(--amber)}
+
+  /* CHAT VS AGENTE */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+  .vs .col{border-radius:var(--radius);padding:26px;border:1px solid var(--border)}
+  .vs .bad{background:linear-gradient(180deg,rgba(248,113,113,.06),var(--card))}
+  .vs .good{background:linear-gradient(180deg,rgba(52,211,153,.06),var(--card));border-color:rgba(52,211,153,.35)}
+  .vs h3{font-size:1.05rem;margin-bottom:.8rem}
+  .vs .bad h3{color:var(--red)} .vs .good h3{color:var(--green)}
+  .vs ul{list-style:none} .vs li{padding:.32rem 0 .32rem 1.4rem;position:relative;font-size:.95rem;color:var(--muted)}
+  .vs .bad li::before{content:"✕";position:absolute;left:0;color:var(--red);font-weight:700}
+  .vs .good li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+
+  /* PERFIS */
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+  .perfil{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;gap:.6rem;transition:border-color .2s,transform .2s}
+  .perfil:hover{border-color:var(--amber);transform:translateY(-3px)}
+  .perfil .num{font-size:.75rem;letter-spacing:.15em;color:var(--dim);font-weight:700}
+  .perfil h3{font-size:1.2rem}
+  .perfil .pergunta{color:var(--amber-soft);font-weight:600;font-size:.98rem}
+  .perfil .promessa{color:var(--muted);font-size:.94rem;flex:1}
+  .perfil .plink{font-weight:700;font-size:.9rem;margin-top:.4rem}
+
+  /* MÓDULOS */
+  .mods{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px;counter-reset:mod}
+  .mod{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;position:relative}
+  .mod::before{counter-increment:mod;content:"M" counter(mod);position:absolute;top:18px;right:18px;font-size:.75rem;font-weight:800;color:var(--bg);background:var(--amber);border-radius:8px;padding:.15rem .5rem}
+  .mod h3{font-size:1rem;padding-right:3rem}
+  .mod .tempo{font-size:.78rem;color:var(--sky);font-weight:700;letter-spacing:.06em}
+  .mod p{font-size:.9rem;color:var(--muted);margin-top:.35rem}
+  .mod .entrega{margin-top:.55rem;font-size:.85rem;color:var(--text)}
+  .mod .entrega b{color:var(--green);font-weight:700}
+  .mod.gate{border-color:rgba(56,189,248,.4)}
+  .escada{margin-top:22px;background:var(--bg2);border:1px dashed var(--border-hi);border-radius:var(--radius);padding:18px 22px;font-size:.92rem;color:var(--muted)}
+  .escada b{color:var(--amber-soft)}
+
+  /* DETALHE DOS CAMINHOS */
+  .caminho{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:30px;margin-top:22px}
+  .caminho h3{font-size:1.3rem;margin-bottom:.3rem}
+  .caminho .para{color:var(--muted);font-size:.94rem;margin-bottom:1rem}
+  .caminho .projetos{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 22px;margin:1rem 0;counter-reset:proj}
+  .caminho .projetos span{font-size:.9rem;color:var(--muted);padding:.28rem 0 .28rem 1.9rem;position:relative}
+  .caminho .projetos span::before{counter-increment:proj;content:counter(proj);position:absolute;left:0;top:.34rem;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--bg2);border:1px solid var(--border-hi);color:var(--amber-soft);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .caminho .final{background:var(--bg2);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 16px;font-size:.95rem}
+  .caminho .final b{color:var(--amber-soft)}
+
+  /* ISCA */
+  .isca{background:linear-gradient(180deg,rgba(245,158,11,.09),transparent);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .isca .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0;counter-reset:st}
+  .isca .st{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:relative}
+  .isca .st::before{counter-increment:st;content:counter(st);display:inline-flex;width:2rem;height:2rem;border-radius:50%;background:var(--amber);color:#1a1206;font-weight:800;align-items:center;justify-content:center;margin-bottom:.7rem}
+  .isca .st p{font-size:.92rem;color:var(--muted)}
+  .isca .st b{color:var(--text)}
+
+  /* FAQ */
+  details{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-top:12px;overflow:hidden}
+  summary{cursor:pointer;padding:18px 22px;font-weight:700;list-style:none;position:relative;padding-right:3rem}
+  summary::after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);color:var(--amber);font-size:1.4rem;font-weight:400}
+  details[open] summary::after{content:"–"}
+  details .a{padding:0 22px 20px;color:var(--muted);font-size:.95rem}
+  details .a b{color:var(--text)}
+
+  /* FINAL */
+  .final-cta{background:radial-gradient(ellipse 60% 70% at 50% 100%, rgba(245,158,11,.14), transparent)}
+  .final-cta h2{font-size:clamp(1.6rem,4vw,2.4rem);max-width:760px;margin:0 auto 1rem}
+  footer{border-top:1px solid var(--border);padding:34px 0;font-size:.85rem;color:var(--dim)}
+  .footrow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+
+  .sec-head{max-width:720px}
+  .sec-head h2{font-size:clamp(1.5rem,3.4vw,2.1rem);margin:.6rem 0 .8rem}
+  .sec-head p{color:var(--muted)}
+  .sec-head.center{margin:0 auto;text-align:center}
+
+  @media(max-width:820px){
+    .timeline{grid-template-columns:1fr}
+    .vs{grid-template-columns:1fr}
+    .grid4{grid-template-columns:1fr}
+    .mods{grid-template-columns:1fr}
+    .caminho .projetos{grid-template-columns:1fr}
+    .isca .steps{grid-template-columns:1fr}
+    section{padding:56px 0}
+  }
+</style>
+<link href="https://inematds.github.io/agentes-office/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/agentes-office/en/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/agentes-office/es/" hreflang="es" rel="alternate"/></head>
+<body><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../en/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<nav>
+<div class="wrap navrow">
+<a class="logo" href="https://inema.club"><span class="dot"></span>INEMA<span class="club">.CLUB</span></a>
+<a class="navcta" href="demo/">Empieza gratis en 15 min</a>
+</div>
+</nav>
+<!-- HERO -->
+<header class="hero center">
+<div class="wrap">
+<span class="kicker">Formación INEMA.CLUB · 4 caminos según el perfil</span>
+<h1>Agentes: lo Nuevo <span class="hl">Office</span><br/>de la Era de la IA</h1>
+<p class="sub">
+      En los años 90, tuviste que aprender <strong>computadora</strong>.
+      En los años 2000, necesitaste aprender <strong>internet</strong>.
+      Ahora, necesitas aprender <strong>agentes de IA</strong>. Ya atravesaste dos cambios importantes. Este es el tercero — y esta vez, tu experiencia es la ventaja.
+    </p>
+<p class="anchor-phrase">No vas a aprender IA.<br/><em>Vas a montar tu entorno de trabajo con agentes.</em></p>
+<a class="cta-big" href="demo/">Arma tu primer agente — gratis, en 15 minutos</a>
+<span class="cta-note">Sin tarjeta. Sin instalar nada. Con un problema real de tu trabajo.</span>
+<img alt="Profesional con experiencia en su escritorio, con paneles de agentes de IA trabajando a su alrededor" class="heroimg" height="704" src="../assets/img/hero.webp" width="1600"/>
+<div class="timeline">
+<div class="era">
+<img alt="Escritorio de oficina de los años 90 con computadora beige y disquetes" height="512" loading="lazy" src="../assets/img/era-90.webp" width="768"/>
+<div class="year">AÑOS 90</div>
+<div class="what">Computadora + Office</div>
+<div class="who">Quien aprendió se convirtió en referente del sector. Quien esperó, pasó diez años intentando ponerse al día.</div>
+</div>
+<div class="era">
+<img alt="Monitor de la era de Internet por módem con una página web brillante" height="512" loading="lazy" src="../assets/img/era-2000.webp" width="768"/>
+<div class="year">AÑOS 2000</div>
+<div class="what">Internet, correo electrónico y sitios web</div>
+<div class="who">Quien aprendió abrió mercado. Quien esperó vio cómo cambiaba el mercado sin él.</div>
+</div>
+<div class="era now">
+<img alt="Laptop moderna con agentes de IA luminosos trabajando sobre el teclado" height="512" loading="lazy" src="../assets/img/era-agora.webp" width="768"/>
+<div class="year">AHORA</div>
+<div class="what">Agentes de IA</div>
+<div class="who">Quien opera agentes entrega más, decide mejor y no es reemplazado por quienes los operan.</div>
+</div>
+</div>
+</div>
+</header>
+<!-- NÃO É CHATGPT -->
+<section>
+<div class="wrap">
+<div class="sec-head">
+<span class="kicker">Por qué "ya usé ChatGPT" no cuenta</span>
+<h2>El chat es una conversación. El agente es un sistema.</h2>
+<p>Si ya probaste ChatGPT y sentiste que "no cambió nada", el problema no fue la IA — fue usarla para hacer preguntitas. Esta formación no enseña a conversar con la IA. Enseña a crear empleados digitales que realizan tus tareas, a tu manera, todos los días.</p>
+</div>
+<div class="vs">
+<div class="col bad">
+<h3>Uso de la preguntita (lo que ya intentaste)</h3>
+<ul>
+<li>Pregunta suelta, respuesta genérica</li>
+<li>Cada día empieza desde cero, sin memoria de tu trabajo</li>
+<li>Resultado en el que no confías ni usas</li>
+<li>"Está bien, pero mi semana no cambió"</li>
+</ul>
+</div>
+<div class="col good">
+<h3>Entorno con agentes (lo que vas a montar)</h3>
+<ul>
+<li>Agentes con una misión fija: correo, propuesta, dictamen, reunión</li>
+<li>Base de conocimiento con TUS modelos, casos y procesos</li>
+<li>Resultado según tu estándar, listo para revisar y firmar</li>
+<li>Horas recuperadas cada semana, medibles</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- SELETOR DE PERFIL -->
+<section id="perfis" style="background:var(--bg2)">
+<div class="wrap">
+<div class="sec-head center">
+<span class="kicker">Una formación, cuatro caminos</span>
+<h2>¿Cuál es tu mundo?</h2>
+<p>Todos aprenden la misma base: prompts, agentes, bases de conocimiento, Claude Code, APIs y automatizaciones. Pero cada quien lo aplica a los proyectos de su propio trabajo. Elige con cuál te identificas:</p>
+</div>
+<div class="grid4">
+<a class="perfil" href="#c-operacional">
+<img alt="Asistente holográfico organizando correos y hojas de cálculo en un escritorio" height="640" loading="lazy" src="../assets/img/perfil-operacional.webp" width="896"/>
+<span class="num">RUTA 01</span>
+<h3>Operativo con IA</h3>
+<p class="pergunta">¿Pasas el día ejecutando procesos, correos y hojas de cálculo?</p>
+<p class="promessa">Entrega en 2 horas lo que hoy te lleva el día entero, sin convertirte en programador.</p>
+<span class="plink">Ver mi camino →</span>
+</a>
+<a class="perfil" href="#c-empreendedor">
+<img alt="Mostrador de tienda con un celular que proyecta un asistente que organiza productos y precios" height="640" loading="lazy" src="../assets/img/perfil-empreendedor.webp" width="896"/>
+<span class="num">RUTA 02</span>
+<h3>Emprendedor con IA</h3>
+<p class="pergunta">¿Eres dueño del negocio y haces un poco de todo?</p>
+<p class="promessa">Un equipo digital de ventas, contenido y atención al cliente, que cuesta menos que un pasante.</p>
+<span class="plink">Ver mi camino →</span>
+</a>
+<a class="perfil" href="#c-liberal">
+<img alt="Oficina elegante con estanterías y un panel holográfico que presenta un caso preparado" height="640" loading="lazy" src="../assets/img/perfil-liberal.webp" width="896"/>
+<span class="num">RUTA 03</span>
+<h3>Profesional independiente con IA</h3>
+<p class="pergunta">¿Vives de tu experiencia profesional: consultorio, despacho, consultoría?</p>
+<p class="promessa">Tu experiencia de 20 años operando las 24 horas: dictámenes, informes y clasificación con tu firma.</p>
+<span class="plink">Ver mi camino →</span>
+</a>
+<a class="perfil" href="#c-gestor">
+<img alt="Sala de reuniones ejecutiva con dashboard holográfico listo antes de que llegue todo el mundo" height="640" loading="lazy" src="../assets/img/perfil-gestor.webp" width="896"/>
+<span class="num">RUTA 04</span>
+<h3>Gerente y líder con IA</h3>
+<p class="pergunta">¿Eres responsable de un equipo y de sus resultados?</p>
+<p class="promessa">Llega a cada reunión con un análisis listo — y lidera con datos, no con suposiciones.</p>
+<span class="plink">Ver mi camino →</span>
+</a>
+</div>
+</div>
+</section>
+<!-- OS 8 MÓDULOS -->
+<section id="modulos">
+<div class="wrap">
+<div class="sec-head">
+<span class="kicker">La estructura central de la formación</span>
+<h2>8 módulos. 8 cosas funcionando.</h2>
+<p>Ningún módulo termina en "entendí". Todos terminan con algo TUYO, construido y funcionando. Y la parte técnica llega solo después de que acumules cuatro victorias, a tu ritmo y con una ruta alternativa en cada paso.</p>
+</div>
+<div class="mods">
+<div class="mod"><h3>Entrando en el mundo de los agentes</h3><div class="tempo">~25 MIN</div><p>Qué es un agente (sin jerga) y qué parte de TU trabajo puede convertirse en uno.</p><div class="entrega"><b>Te llevas:</b> el mapa de las 5 tareas de tu trabajo que pueden convertirse en agentes.</div></div>
+<div class="mod"><h3>Prompt como instrucción de trabajo</h3><div class="tempo">~30 MIN</div><p>Un prompt no es una frase bonita: es una orden de trabajo con 8 bloques.</p><div class="entrega"><b>Te llevas:</b> tu biblioteca de prompts profesionales, con casos reales tuyos.</div></div>
+<div class="mod"><h3>Tu primer agente sencillo</h3><div class="tempo">~30 MIN</div><p>Del prompt al empleado digital permanente, probado con un caso real.</p><div class="entrega"><b>Te llevas:</b> tu primer agente funcionando — listo para usar mañana por la mañana.</div></div>
+<div class="mod"><h3>Segundo cerebro en Markdown</h3><div class="tempo">~30 MIN</div><p>Tu experiencia organizada en archivos de texto simple: el combustible de los agentes. (Es un archivador, no es código.)</p><div class="entrega"><b>Te llevas:</b> tu base de conocimiento profesional iniciada.</div></div>
+<div class="mod gate"><h3>Terminal y entorno de trabajo</h3><div class="tempo">~40 MIN · CON UNA RUTA SIN INSTALAR NADA</div><p>La pantalla negra sin miedo: 6 comandos son suficientes, y antes del primero aprendes qué hacer si aparece un error.</p><div class="entrega"><b>Te llevas:</b> tu primer proyecto organizado en la computadora.</div></div>
+<div class="mod gate"><h3>Claude Code y agentes de desarrollo</h3><div class="tempo">~40 MIN</div><p>La IA construye bajo tu dirección: tienes el plano, das la orden, revisas la pared.</p><div class="entrega"><b>Te llevas:</b> una miniaplicación o automatización creada por la IA — sin escribir código.</div></div>
+<div class="mod gate"><h3>APIs, MCP y herramientas</h3><div class="tempo">~40 MIN · NIVEL GRATUITO, SIN TARJETA</div><p>API, webhook y MCP en lenguaje sencillo (enchufes, timbres y adaptadores), y el costo de cada cosa ANTES de usarla.</p><div class="entrega"><b>Te llevas:</b> un agente conectado a una herramienta externa real.</div></div>
+<div class="mod"><h3>Sistema Operativo de IA</h3><div class="tempo">~40 MIN</div><p>El armado final: todo lo que construiste en los módulos anteriores encuentra un lugar propio, con reglas, memoria y un ritual de 20 min por semana.</p><div class="entrega"><b>Te llevas:</b> tu Sistema Operativo de IA, con material 100% real.</div></div>
+</div>
+<div class="escada"><b>La escalera de seguridad:</b> Los módulos 1–4 usan solo el navegador. La terminal aparece en el módulo 5, después de que ya tengas 4 cosas funcionando, y siempre con una ruta alternativa sin instalación. Nadie se queda atrás por una pantalla negra.</div>
+</div>
+</section>
+<!-- CAMINHOS DETALHADOS -->
+<section id="caminhos" style="background:var(--bg2)">
+<div class="wrap">
+<div class="sec-head">
+<span class="kicker">Los proyectos de cada camino</span>
+<h2>La misma base. Proyectos de tu mundo.</h2>
+<p>Nada de "imagina una empresa ficticia". Todos los proyectos usan tu material, tus casos, tus clientes, y se quedan contigo.</p>
+</div>
+<div class="caminho" id="c-operacional">
+<span class="kicker">RUTA 01</span>
+<h3>Profesional operativo con IA</h3>
+<p class="para">Administración, finanzas, atención al cliente, soporte, RR. HH., ventas internas, asistentes y analistas. En los años 90, quien sabía Excel se convirtió en referente del área. Ahora, quien maneje agentes será la persona que el área no puede darse el lujo de perder.</p>
+<div class="projetos">
+<span>Agente personal de productividad</span>
+<span>Agente de resúmenes de reuniones, mensajes y documentos</span>
+<span>Agente para crear y revisar correos electrónicos</span>
+<span>Agente organizador de tareas y prioridades</span>
+<span>Agente de atención interna (preguntas frecuentes del área)</span>
+<span>Mini flujo de trabajo de IA para procesos repetitivos</span>
+<span>Base personal de conocimiento en Markdown</span>
+<span>Sistema operativo sencillo de trabajo con IA</span>
+</div>
+<div class="final"><b>Resultado final:</b> un min sistema operativo de productividad con IA para el trabajo diario.</div>
+<p style="margin-top:14px;font-weight:700"><a href="demo/#operacional">→ Hacer la prueba gratis de esta ruta (15 min)</a></p>
+</div>
+<div class="caminho" id="c-empreendedor">
+<span class="kicker">RUTA 02</span>
+<h3>Emprendedor estratégico con IA</h3>
+<p class="para">Emprendedores, pequeños empresarios, MEI, prestadores de servicios, dueños de negocios y creadores de productos de información. Tu competidor ya tiene un empleado que trabaja de madrugada: responde a los clientes, escribe publicaciones y prepara propuestas. La pregunta es si tu negocio llega antes o después que él.</p>
+<div class="projetos">
+<span>Agente de diagnóstico y análisis del negocio</span>
+<span>Agente de creación de ofertas</span>
+<span>Agente de propuestas comerciales</span>
+<span>Agente de investigación de mercado y competidores</span>
+<span>Agente de contenido para redes sociales (con TU voz)</span>
+<span>Agente de atención comercial</span>
+<span>Automatización comercial sencilla (nunca más dejar a un lead en el aire)</span>
+<span>Sistema operativo de ventas con IA</span>
+</div>
+<div class="final"><b>Resultado final:</b> un sistema de IA para vender, atender, crear contenido y tomar mejores decisiones.</div>
+<p style="margin-top:14px;font-weight:700"><a href="demo/#empreendedor">→ Hacer la prueba gratis de esta ruta (15 min)</a></p>
+</div>
+<div class="caminho" id="c-liberal">
+<span class="kicker">RUTA 03</span>
+<h3>Profesional independiente con experiencia en IA</h3>
+<p class="para">Médicos, abogados, arquitectos, consultores, ingenieros, profesores, contadores y terapeutas. Te tomó 20 años saber lo que sabes. La IA no reemplaza eso: lo multiplica. Un agente entrenado con TUS modelos prepara el borrador a las 6 de la mañana; tú lo revisas, corriges y firmas. La responsabilidad sigue siendo tuya. El tiempo también, solo que vuelve a ti. Con una precaución que aquí es una regla: lo que es confidencial <b>nunca</b> entra en la IA sin protección; esto es contenido del curso, no letra pequeña.</p>
+<div class="projetos">
+<span>Agente de clasificación y preparación de atención al cliente</span>
+<span>Agente de investigación especializada con fuentes</span>
+<span>Agente de informes y dictámenes según tu estándar</span>
+<span>Agente revisor de documentos</span>
+<span>Base de conocimiento profesional (tus modelos y tesis)</span>
+<span>Agente de contenido técnico con tu voz</span>
+<span>Tu base conectada: agentes que citan TUS documentos</span>
+<span>Sistema operativo de IA del consultorio u oficina</span>
+</div>
+<div class="final"><b>Resultado final:</b> un segundo cerebro profesional con agentes para decisiones, documentos, investigación y atención al cliente.</div>
+<p style="margin-top:14px;font-weight:700"><a href="demo/#liberal">→ Hacer la prueba gratis de esta ruta (15 min)</a></p>
+</div>
+<div class="caminho" id="c-gestor">
+<span class="kicker">RUTA 04</span>
+<h3>Gerente y líder con IA</h3>
+<p class="para">Gerentes, coordinadores, directores, empresarios con equipo y consultores de gestión. Liderar es decidir, y decides mejor cuando el análisis ya está listo, el estado está actualizado y la reunión empieza con las preguntas correctas. Los agentes preparan. Tú decides. Tu reunión del lunes, lista en tu escritorio el domingo por la noche.</p>
+<div class="projetos">
+<span>Agente de preparación de reuniones</span>
+<span>Agente de seguimiento de proyectos</span>
+<span>Agente de análisis de indicadores</span>
+<span>Agente de comunicación con el equipo (con tu tono)</span>
+<span>Agente de creación y documentación de procesos</span>
+<span>Agente de análisis de equipos y productividad</span>
+<span>Agente de decisiones estratégicas</span>
+<span>Sistema operativo de gestión con IA</span>
+</div>
+<div class="final"><b>Resultado final:</b> un sistema operativo de gestión con IA para liderar proyectos, personas y decisiones.</div>
+<p style="margin-top:14px;font-weight:700"><a href="demo/#gestor">→ Hacer la prueba gratis de esta ruta (15 min)</a></p>
+</div>
+</div>
+</section>
+<!-- ISCA -->
+<section class="isca" id="isca">
+<div class="wrap center">
+<div class="sec-head center">
+<span class="kicker">Antes de decidir cualquier cosa</span>
+<h2>La prueba de los 15 minutos</h2>
+<p>No te fíes de la página. Haz la prueba: monta tu primer agente ahora, gratis, con un problema real de tu trabajo. Si en 15 minutos no notas la diferencia, esta formación no es para ti, y está bien.</p>
+</div>
+<div class="steps">
+<div class="st"><p><b>Elige tu camino</b> en la página de la prueba y recibe el prompt-agente de tu perfil, listo, probado y en portugués.</p></div>
+<div class="st"><p><b>Completa 3 espacios</b> con un caso real tuyo y pégalo en ChatGPT o Claude que ya usas. Nada que instalar, nada que pagar.</p></div>
+<div class="st"><p><b>Mira cómo funciona.</b> Tu semana organizada, tu diagnóstico, tu clasificación o tu resumen para la reunión — en minutos, con tu estilo.</p></div>
+</div>
+<a class="cta-big" href="demo/">Quiero mi primer agente gratis</a>
+<span class="cta-note">Eso fue 1 prompt. La formación arma todo tu sistema.</span>
+</div>
+</section>
+<!-- FAQ ANTI-OBJEÇÕES -->
+<section id="faq">
+<div class="wrap" style="max-width:820px">
+<div class="sec-head center">
+<span class="kicker">Las dudas legítimas</span>
+<h2>"¿Será que esto es para mí?"</h2>
+</div>
+<details>
+<summary>No soy técnico. ¿Necesito saber programar?</summary>
+<div class="a">No, y ese es el cambio de era. Los 4 primeros módulos usan <b>solo el navegador</b>. Cuando aparece la terminal (módulo 5), ya tienes 4 cosas funcionando, aprendes con 6 comandos y tienes una ruta alternativa sin instalar nada. Quien escribe el código es la IA; quien da las órdenes eres tú.</div>
+</details>
+<details>
+<summary>No tengo tiempo para otro curso.</summary>
+<div class="a">Cada clase indica el tiempo antes de empezar (25–40 min) y cabe en una pausa para almorzar. Y la "tarea" es tu propio trabajo: las prácticas usan tus tareas reales — el tiempo invertido <b>vuelve esa misma semana</b>.</div>
+</details>
+<details>
+<summary>Ya usé ChatGPT y no cambió nada.</summary>
+<div class="a">Porque el chat es una conversación, y una conversación no cambia la rutina. Aquí construyes <b>agentes con una misión fija + una base con tus conocimientos</b>. Es la diferencia entre pedirle un favor a un desconocido y tener un empleado capacitado por ti.</div>
+</details>
+<details>
+<summary>¿La IA va a reemplazarme?</summary>
+<div class="a">La historia de los cambios anteriores responde: la computadora no reemplazó a quienes aprendieron Office; reemplazó a la máquina de escribir. <b>Quien opera agentes reemplaza a quien no los opera.</b> Y en esta formación, la materia prima de los agentes es TU experiencia: se vuelve más valiosa, no menos.</div>
+</details>
+<details>
+<summary>Tengo 40+ / 50+. ¿Esto no es cosa de jóvenes?</summary>
+<div class="a">Ya cruzaste <b>dos</b> cambios tecnológicos — la computadora e internet. Es la tercera vez, no la primera. Y esta vez tienes lo que los jóvenes no tienen: una profesión, problemas reales y experiencia para convertir en agentes. La formación se diseñó para adultos ocupados, sin jerga y sin apuros artificiales.</div>
+</details>
+<details>
+<summary>¿Y si hay un error en mi computadora? Me bloqueo con estas cosas.</summary>
+<div class="a">El error forma parte del método, literalmente: antes del primer comando, aprendes a copiar cualquier error y pegarlo en la IA para pedir ayuda. Cada ejercicio técnico tiene una tarjeta «si aparece esto, haz esto» y una <b>ruta alternativa por el navegador</b>. Nadie se queda atrapado en una pantalla roja.</div>
+</details>
+<details>
+<summary>Nunca termino los cursos en línea.</summary>
+<div class="a">Porque la mayoría termina en "entendí" — y entender no retiene a nadie. Aquí cada módulo termina con <b>algo tuyo funcionando</b>, y el proyecto final es solo el ensamblaje de lo que ya construiste. No persigues un certificado; creas un sistema que usas todos los días.</div>
+</details>
+<details>
+<summary>¿Mis datos y los de mis clientes están seguros?</summary>
+<div class="a">Esto es contenido de la clase, no un pie de página: todos los caminos tienen el bloque <b>"qué nunca poner en la IA"</b> (secreto profesional, datos de clientes y pacientes, LGPD), y las prácticas sensibles usan datos ficticios. Aprendes a usar IA con la responsabilidad que exige tu profesión.</div>
+</details>
+</div>
+</section>
+<!-- CTA FINAL -->
+<section class="final-cta center">
+<div class="wrap">
+<span class="kicker">El tercer cambio ya empezó</span>
+<h2>En los años 90 fue la computadora. En los años 2000, internet. Quienes aprendieron tomaron la delantera, dos veces.</h2>
+<p class="muted" style="max-width:640px;margin:0 auto 2rem">Ahora vienen los agentes. La diferencia es que esta vez no empiezas de cero: tienes experiencia, profesión y problemas reales. La formación transforma todo eso en agentes, procesos y sistemas que funcionan en la práctica.</p>
+<a class="cta-big" href="demo/">Empieza con la prueba de 15 minutos</a>
+<span class="cta-note">Gratis. Sin tarjeta. Con un problema real de tu trabajo.</span>
+</div>
+</section>
+<footer>
+<div class="wrap footrow">
+<a class="logo" href="https://inema.club" style="font-size:.95rem"><span class="dot"></span>INEMA<span class="club">.CLUB</span></a>
+<div>Agentes: la nueva oficina de la era de la IA · Formación práctica por perfil</div>
+</div>
+<!-- inema-backlink:v1 -->
+<p style="display:block;width:100%;text-align:center;font-size:.85rem;margin:.75rem 0 0;opacity:.85"><a href="https://www.inema.club/cursos/204-agentes-o-novo-office-formacao-por-perfil/" style="color:inherit;text-decoration:underline">Ficha completa de este curso en INEMA.CLUB</a> · <a href="https://www.inema.club/aprender-inteligencia-artificial/" style="color:inherit;text-decoration:underline">Guía: cómo aprender inteligencia artificial</a></p>
+<!-- /inema-backlink:v1 -->
+</footer>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tu primer agente en 15 minutos — gratis | INEMA.CLUB</title>
+<meta content="Arma tu primer agente de IA ahora, gratis, con un problema real de tu trabajo. Sin registrarte, sin tarjeta, sin instalar nada." name="description"/>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg2:#101018; --card:#14141f; --card2:#1a1a28;
+    --border:#26263a; --border-hi:#3a3a55;
+    --text:#e8e6e0; --muted:#9a97a8; --dim:#6b6880;
+    --amber:#f59e0b; --amber-soft:#fbbf24; --sky:#38bdf8;
+    --green:#34d399; --red:#f87171;
+    --radius:14px; --maxw:900px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:var(--amber-soft);text-decoration:none}
+  h1,h2,h3{line-height:1.25;font-weight:800}
+  .kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:700}
+  .muted{color:var(--muted)}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,10,15,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .navrow{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:.5rem;color:var(--text)}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
+  .logo .club{color:var(--sky)}
+  .navback{font-size:.9rem;color:var(--muted)}
+  .navback:hover{color:var(--text)}
+
+  header{padding:64px 0 40px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% -10%, rgba(245,158,11,.12), transparent)}
+  header h1{font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.8rem 0}
+  header .sub{color:var(--muted);max-width:640px;margin:0 auto;font-size:1.02rem}
+  header .sub strong{color:var(--text)}
+
+  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:36px 0 8px}
+  .tab{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 10px;cursor:pointer;text-align:center;color:var(--muted);font-weight:700;font-size:.88rem;transition:all .15s;font-family:inherit}
+  .tab small{display:block;font-weight:400;font-size:.72rem;color:var(--dim);margin-top:2px}
+  .tab:hover{border-color:var(--border-hi);color:var(--text)}
+  .tab.on{background:linear-gradient(180deg,rgba(245,158,11,.14),var(--card));border-color:var(--amber);color:var(--text)}
+  .tab.on small{color:var(--amber-soft)}
+
+  .panel{display:none;padding:28px 0 10px}
+  .panel.on{display:block}
+  .panel .promessa{font-size:1.25rem;font-weight:800;margin-bottom:.4rem}
+  .panel .promessa em{font-style:normal;color:var(--amber-soft)}
+  .panel .pdesc{color:var(--muted);margin-bottom:1.6rem;max-width:700px}
+
+  .passos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.6rem;counter-reset:pa}
+  .passo{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+  .passo::before{counter-increment:pa;content:"PASSO " counter(pa);display:block;font-size:.7rem;letter-spacing:.14em;color:var(--amber);font-weight:800;margin-bottom:.4rem}
+  .passo p{font-size:.88rem;color:var(--muted)}
+  .passo b{color:var(--text)}
+
+  .promptbox{background:var(--bg2);border:1px solid var(--border-hi);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem}
+  .pbhead{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--card)}
+  .pbhead .t{font-size:.8rem;letter-spacing:.1em;color:var(--dim);font-weight:700;text-transform:uppercase}
+  .copybtn{background:var(--amber);color:#1a1206;border:none;font-weight:800;font-size:.85rem;padding:.5rem 1.1rem;border-radius:9px;cursor:pointer;font-family:inherit;transition:transform .12s}
+  .copybtn:hover{transform:translateY(-1px)}
+  .copybtn.ok{background:var(--green)}
+  pre{padding:20px;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;line-height:1.65;color:#cfcde0;max-height:520px;overflow-y:auto}
+  pre .gap{color:var(--amber-soft);font-weight:700;background:rgba(245,158,11,.12);border-radius:4px;padding:0 3px}
+
+  .safe{display:flex;gap:12px;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.3);border-radius:var(--radius);padding:14px 18px;margin-bottom:1.6rem;font-size:.9rem;color:var(--muted)}
+  .safe .ic{color:var(--red);font-weight:800}
+  .safe b{color:var(--text)}
+
+  .esperar{background:var(--card);border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:14px 18px;font-size:.93rem;color:var(--muted);margin-bottom:2rem}
+  .esperar b{color:var(--green)}
+
+  .fecho{text-align:center;background:linear-gradient(180deg,rgba(245,158,11,.09),transparent);border:1px solid var(--border);border-radius:var(--radius);padding:34px 24px;margin:10px 0 60px}
+  .fecho h2{font-size:1.35rem;margin-bottom:.6rem}
+  .fecho p{color:var(--muted);max-width:560px;margin:0 auto 1.4rem;font-size:.95rem}
+  .cta-big{display:inline-block;background:linear-gradient(180deg,var(--amber-soft),var(--amber));color:#1a1206;font-weight:800;font-size:1rem;padding:.85rem 1.7rem;border-radius:12px;box-shadow:0 8px 30px rgba(245,158,11,.28);transition:transform .15s}
+  .cta-big:hover{transform:translateY(-2px)}
+  .cta-note{display:block;margin-top:.6rem;font-size:.82rem;color:var(--dim)}
+
+  footer{border-top:1px solid var(--border);padding:30px 0;font-size:.85rem;color:var(--dim);text-align:center}
+
+  @media(max-width:760px){
+    .tabs{grid-template-columns:repeat(2,1fr)}
+    .passos{grid-template-columns:1fr}
+  }
+</style>
+<link href="https://inematds.github.io/agentes-office/demo/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/agentes-office/en/demo/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/agentes-office/es/demo/" hreflang="es" rel="alternate"/></head>
+<body><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../demo/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../en/demo/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<nav>
+<div class="wrap navrow">
+<a class="logo" href="https://inema.club"><span class="dot"></span>INEMA<span class="club">.CLUB</span></a>
+<a class="navback" href="../">← Volver a la formación</a>
+</div>
+</nav>
+<header>
+<div class="wrap">
+<span class="kicker">La prueba de los 15 minutos · gratis</span>
+<h1>Arma tu primer agente ahora</h1>
+<p class="sub">Sin registrarte, sin tarjeta, sin instalar nada. Vas a <strong>copiar un prompt-agente</strong>, completar los espacios con un caso real de tu trabajo y pegarlo en el <strong>ChatGPT o Claude</strong> que ya usas. En 15 minutos, verás la diferencia entre conversar con IA y tener un agente.</p>
+</div>
+</header>
+<main class="wrap">
+<div class="tabs" role="tablist">
+<button class="tab" data-p="operacional">Operativo<small>procesos, correos electrónicos, hojas de cálculo</small></button>
+<button class="tab" data-p="empreendedor">Emprendedor<small>dueño del negocio</small></button>
+<button class="tab" data-p="liberal">Profesional independiente<small>consultorio, oficina</small></button>
+<button class="tab" data-p="gestor">Gerente y líder<small>equipo y resultados</small></button>
+</div>
+<!-- ══════════ OPERACIONAL ══════════ -->
+<section class="panel" id="p-operacional">
+<p class="promessa">Tu semana organizada en 15 minutos — <em>y mañana sabrás por dónde empezar.</em></p>
+<p class="pdesc">Este es tu <b>agente personal de productividad</b>: recibe el montón de demandas (correo electrónico, WhatsApp, reunión, todo mezclado) y devuelve la semana organizada por urgencia, con los primeros pasos para mañana.</p>
+<div class="passos">
+<div class="passo"><p><b>Copia el prompt</b> con el botón de abajo.</p></div>
+<div class="passo"><p><b>Completa los espacios amarillos</b>: tu función, tu rutina y el montón de demandas de la semana.</p></div>
+<div class="passo"><p><b>Pega en ChatGPT o Claude</b> y envíalo. Lee el resultado y responde lo que te pregunte.</p></div>
+</div>
+<div class="promptbox">
+<div class="pbhead"><span class="t">Prompt de agente · productividad</span><button class="copybtn">Copiar prompt</button></div>
+<pre>Eres mi agente personal de productividad.
+
+PAPEL: asistente ejecutivo con experiencia, especialista en organizar el trabajo de un(a) <span class="gap">[TU FUNCIÓN — ej.: analista administrativa, asistente de RR. HH.]</span>.
+
+OBJETIVO: transformar mi lista de demandas en una semana organizada, para saber exactamente por dónde empezar mañana.
+
+CONTEXTO: trabajo con <span class="gap">[TU RUTINA — ej.: tareas de gestión de personal, cierre de hojas de cálculo y atención a colaboradores]</span>. Recibo demandas por correo electrónico, WhatsApp y en reuniones, y se acumulan sin orden.
+
+REGLAS:
+- No inventes demandas ni plazos; si algo es ambiguo, pregúntame antes.
+- Separa lo urgente de lo que solo hace ruido.
+- Considera que mi jefe valora principalmente: <span class="gap">[QUÉ ES LO QUE MÁS TE EXIGE TU JEFE — ej.: plazos de nómina y respuesta rápida]</span>.
+
+ENTRADA — mi lista de demandas (las anoto sin orden):
+<span class="gap">[PEGA AQUÍ TUS TAREAS DE LA SEMANA, UNA POR LÍNEA]</span>
+
+RESULTADO ESPERADO:
+1. Panorama de la semana: URGENTE / IMPORTANTE / PUEDE ESPERAR / DEVOLVER-DELEGAR.
+2. Los 3 primeros pasos de mañana, en orden, con el tiempo estimado para cada uno.
+3. Riesgos de la semana: qué se complica si no actúo.
+4. Una pregunta que debería hacerle a mi jefe para destrabar algo.
+
+CRITERIO DE CALIDAD: mañana por la mañana abro tu respuesta y empiezo a trabajar sin pensar «¿por dónde empiezo?».</pre>
+</div>
+<div class="safe"><span class="ic">!</span><div><b>Antes de pegar:</b> no incluyas datos personales de clientes o colaboradores (nombres completos, CPF, salarios). Usa iniciales o descripciones: el agente funciona igual y aprendes desde el primer día el hábito que protege tu empleo.</div></div>
+<div class="esperar"><b>Qué esperar:</b> una semana dividida en 4 categorías, los 3 primeros pasos de mañana y los riesgos señalados. Si alguna clasificación está mal, corrígela en una frase («esto no es urgente, es rutinario») — y fíjate en que aprende al instante. Eso es dirigir un agente.</div>
+</section>
+<!-- ══════════ EMPREENDEDOR ══════════ -->
+<section class="panel" id="p-empreendedor">
+<p class="promessa">La radiografía de tu negocio en 15 minutos — <em>con las verdades que nadie te cuenta.</em></p>
+<p class="pdesc">Este es tu <b>agente de diagnóstico de negocio</b>: te entrevista con hasta 10 preguntas breves y te indica dónde el negocio pierde dinero y tiempo, y cuáles son los 3 primeros «empleados digitales» que deberías crear.</p>
+<div class="passos">
+<div class="passo"><p><b>Copia el prompt</b> con el botón de abajo.</p></div>
+<div class="passo"><p><b>Completa los espacios amarillos</b>: cuál es tu negocio y desde hace cuánto existe.</p></div>
+<div class="passo"><p><b>Pega en ChatGPT o Claude</b> y responde la entrevista, una pregunta a la vez. El diagnóstico llega al final.</p></div>
+</div>
+<div class="promptbox">
+<div class="pbhead"><span class="t">Prompt de agente · diagnóstico</span><button class="copybtn">Copiar prompt</button></div>
+<pre>Eres mi agente de diagnóstico empresarial.
+
+PAPEL: consultor de pequeñas empresas, directo y práctico, sin jerga económica y sin elogios de cortesía.
+
+OBJETIVO: hacer una radiografía de mi negocio y decirme dónde estoy perdiendo dinero y tiempo, y cuáles son los 3 primeros "empleados digitales" (agentes de IA) que debería montar.
+
+CONTEXTO: mi negocio es <span class="gap">[TU NEGOCIO — ej.: tienda de ropa con Instagram / servicios de remodelación residencial]</span>, existe desde hace <span class="gap">[TIEMPO — ej.: 6 años]</span>, y hoy quien hace casi todo soy yo.
+
+REGLAS:
+- Entrevístame ANTES de opinar: haz hasta 10 preguntas, UNA a la vez, y espera mi respuesta.
+- Preguntas cortas, sobre números y rutina: ventas, presupuestos, atención, difusión, tiempo.
+- No me elogies por cortesía; señala lo que esté mal.
+- No sugieras herramientas caras ni contratar gente: la solución tiene que caber en mi bolsillo y en mi tiempo.
+
+ENTRADA: mis respuestas a tu entrevista. Empieza la entrevista ahora.
+
+RESULTADO ESPERADO (solo después de la entrevista):
+1. Diagnóstico: dónde pierde dinero y tiempo el negocio hoy, en orden de gravedad.
+2. Las 2 verdades incómodas que necesito escuchar.
+3. Los 3 primeros agentes que debería crear, qué resuelve cada uno y cuánto tiempo me devuelve por semana.
+
+CRITERIO DE CALIDAD: termino sabiendo exactamente qué abordar primero el lunes.</pre>
+</div>
+<div class="safe"><span class="ic">!</span><div><b>Antes de pegar:</b> puedes hablar de las cifras del negocio con libertad, pero no incluyas datos de clientes (nombres, teléfonos, deudas). El diagnóstico es sobre TU proceso, no sobre las personas.</div></div>
+<div class="esperar"><b>Qué esperar:</b> una entrevista que parece una consultoría de verdad — y un diagnóstico con al menos 2 verdades que ya sospechabas y venías postergando. Si generaliza, exige: «dame un ejemplo concreto de MI caso». Eso es dirigir un agente.</div>
+</section>
+<!-- ══════════ LIBERAL ══════════ -->
+<section class="panel" id="p-liberal">
+<p class="promessa">Tu próxima atención preparada en 15 minutos — <em>con las preguntas correctas listas.</em></p>
+<p class="pdesc">Este es tu <b>agente de triaje y preparación de atención</b>: recibe los datos de un caso (sin identificar a nadie) y devuelve el resumen, los puntos de atención y las preguntas más importantes para la consulta o reunión.</p>
+<div class="passos">
+<div class="passo"><p><b>Copia el prompt</b> con el botón de abajo.</p></div>
+<div class="passo"><p><b>Completa los espacios amarillos</b>: tu profesión, tu tipo de cliente/paciente y los datos del caso — <b>sin nombres reales</b>.</p></div>
+<div class="passo"><p><b>Pega en ChatGPT o Claude</b> y envíalo. Revisa el resultado con tu propio criterio; la firma sigue siendo tuya.</p></div>
+</div>
+<div class="promptbox">
+<div class="pbhead"><span class="t">Prompt de agente · clasificación de consultas</span><button class="copybtn">Copiar prompt</button></div>
+<pre>Eres mi agente de triaje y preparación de atención.
+
+PAPEL: asistente sénior de un(a) <span class="gap">[TU PROFESIÓN — ej.: abogada laboral / médico general / contador]</span>, entrenado para organizar casos antes de la atención.
+
+OBJETIVO: a partir de los datos de un caso, preparar mi atención en minutos: resumen, puntos de atención y las preguntas correctas que debo hacer.
+
+CONTEXTO: atiendo a <span class="gap">[TU TIPO DE CLIENTE/PACIENTE — ej.: trabajadores en disputas por despido / pacientes adultos en consultas de rutina]</span>. Tengo poco tiempo para prepararme y nada importante puede pasar desapercibido.
+
+REGLAS:
+- NUNCA inventes información, leyes, referencias ni diagnósticos. Lo que no esté en los datos, márcalo como "POR VERIFICAR".
+- No tomes la decisión por mí: tú preparas, yo decido y yo firmo.
+- Usa el lenguaje técnico de mi área, de forma directa y sin rodeos.
+- Si los datos están incompletos, enumera lo que falta ANTES de cualquier análisis.
+
+ENTRADA — datos del caso (sin nombres reales, usa iniciales):
+<span class="gap">[DESCRIBE EL CASO EN 3 A 10 LÍNEAS, SIN IDENTIFICAR A NADIE]</span>
+
+RESULTADO ESPERADO:
+1. Resumen del caso en 5 líneas.
+2. De 3 a 5 puntos de atención: riesgos, inconsistencias y qué profundizar.
+3. Las 7 preguntas más importantes que debo hacer durante la consulta, en orden.
+4. Qué debo verificar en fuentes oficiales antes de dar mi opinión.
+
+CRITERIO DE CALIDAD: llego a la consulta después de 10 minutos de lectura, sin sorpresas evitables, y toda afirmación verificable queda marcada para su comprobación.</pre>
+</div>
+<div class="safe"><span class="ic">!</span><div><b>Regla de oro de tu profesión:</b> un dato confidencial NUNCA entra en la IA sin protección. Usa iniciales, elimina identificadores o prueba con un caso ficticio. En la formación, esto es una lección; aquí, es el hábito desde el primer minuto. Y recuerda: la IA prepara, <b>verificas las fuentes y firmas</b>.</div></div>
+<div class="esperar"><b>Qué esperar:</b> una preparación para atender a un cliente que normalmente tomaría 40–60 minutos, lista para revisar en minutos — con los puntos «POR VERIFICAR» marcados (fíjate en esto: un agente bien instruido no inventa, lo señala). Corrige en una frase lo que no te convenza y mira cómo vuelve a hacer el análisis. Eso es dirigir un agente.</div>
+</section>
+<!-- ══════════ GESTOR ══════════ -->
+<section class="panel" id="p-gestor">
+<p class="promessa">Tu próxima reunión preparada en 15 minutos — <em>con las decisiones mapeadas antes de empezar.</em></p>
+<p class="pdesc">Este es tu <b>agente de preparación de reuniones</b>: recibe la agenda y el contexto, y devuelve un informe para tomar decisiones: qué decidir, qué pedir antes, las preguntas adecuadas y las trampas probables.</p>
+<div class="passos">
+<div class="passo"><p><b>Copia el prompt</b> con el botón de abajo.</p></div>
+<div class="passo"><p><b>Completa los espacios amarillos</b>: tu cargo, cuál es la reunión y la agenda con el contexto.</p></div>
+<div class="passo"><p><b>Pega en ChatGPT o Claude</b> y envíalo. Lleva el informe a la reunión y compáralo con el de siempre.</p></div>
+</div>
+<div class="promptbox">
+<div class="pbhead"><span class="t">Prompt de agente · resumen de reunión</span><button class="copybtn">Copiar prompt</button></div>
+<pre>Eres mi agente de preparación de reuniones.
+
+PAPEL: jefe de gabinete con experiencia de un(a) <span class="gap">[TU CARGO — ej.: coordinadora de operaciones con un equipo de 12 / director comercial de una pyme]</span>, que prepara DECISIONES, no presentaciones.
+
+OBJETIVO: transformar la agenda y el contexto de abajo en un briefing de decisión, para que yo llegue a la reunión sabiendo qué decidir, qué preguntar y dónde están las trampas.
+
+CONTEXTO: la reunión es <span class="gap">[QUÉ REUNIÓN Y QUIÉNES PARTICIPAN — ej.: estado semanal con el equipo de operaciones / reunión de dirección del lunes]</span>. Históricamente, salimos de ella sin una decisión clara.
+
+REGLAS:
+- Enfócate en las decisiones, no en el relato: una reunión que no decide nada debería haber sido un correo electrónico.
+- No inventes datos; lo que falte, conviértelo en "pedir antes de la reunión" (y di a quién pedírselo).
+- Señala los intereses en conflicto entre los participantes, si los hay.
+- Analiza roles y procesos, nunca personas: no juzgues a nadie.
+
+ENTRADA — agenda y contexto:
+<span class="gap">[PEGA AQUÍ LA AGENDA Y LO QUE SABES DEL CONTEXTO]</span>
+
+RESULTADO ESPERADO:
+1. Las 2–3 decisiones que esta reunión debe producir.
+2. Datos que pedir ANTES de la reunión y a quién pedírselos.
+3. Las 5 preguntas adecuadas, en orden.
+4. Posibles trampas (hacia dónde suele desviarse la conversación) y cómo retomarla.
+5. Borrador del cierre: qué anunciar como decidido y los próximos pasos con responsables.
+
+CRITERIO DE CALIDAD: la reunión termina 15 minutos antes, con las decisiones registradas.</pre>
+</div>
+<div class="safe"><span class="ic">!</span><div><b>Antes de pegar:</b> no uses nombres de colaboradores en contextos de evaluación: describe los roles ("la persona responsable del inventario"). El análisis de personas es un tema serio y tiene su momento; en la formación aprendes dónde entra la IA y dónde nunca entra.</div></div>
+<div class="esperar"><b>Qué esperar:</b> un informe que parece hecho por una persona de confianza que leyó todo antes que tú. Si la reunión de prueba termina con una decisión registrada, acabas de recuperar tu primera hora de gestión. Eso es dirigir un agente.</div>
+</section>
+<!-- FECHO -->
+<div class="fecho">
+<span class="kicker">¿Funcionó?</span>
+<h2>Eso fue 1 prompt. La formación arma todo tu sistema.</h2>
+<p>Lo que acabas de usar es el <b>Proyecto 1</b> de la formación — dato gratis, sin trucos. En los 8 módulos, este agente gana colegas (correo electrónico, documentos, investigación, atención al cliente), una base con TU conocimiento, herramientas conectadas y una sede: tu Sistema Operativo de IA.</p>
+<a class="cta-big" href="../curso/liberal/">Quiero entrar en el primer grupo</a>
+<span class="cta-note">Formación INEMA.CLUB · Agentes: la nueva oficina de la era de la IA</span>
+</div>
+</main>
+<footer>
+<div class="wrap">INEMA<span style="color:var(--sky)">.CLUB</span> · La prueba de los 15 minutos · <a href="../">Agentes: la nueva oficina de la era de la IA</a></div>
+</footer>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.tab');
+  var valid = ['operacional','empreendedor','liberal','gestor'];
+  function show(p){
+    if(valid.indexOf(p)<0) p='operacional';
+    tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.p===p); });
+    document.querySelectorAll('.panel').forEach(function(el){ el.classList.toggle('on', el.id==='p-'+p); });
+    if(history.replaceState) history.replaceState(null,'','#'+p);
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ show(t.dataset.p); }); });
+  window.addEventListener('hashchange', function(){ show(location.hash.replace('#','')); });
+  show(location.hash.replace('#','') || 'operacional');
+
+  document.querySelectorAll('.copybtn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.promptbox').querySelector('pre');
+      var txt = pre.innerText;
+      function done(){ btn.textContent='Copiado ✓'; btn.classList.add('ok');
+        setTimeout(function(){ btn.textContent='Copiar prompt'; btn.classList.remove('ok'); },2200); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done).catch(function(){ fallback(); });
+      } else { fallback(); }
+      function fallback(){
+        var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+        ta.select(); try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(ta);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
